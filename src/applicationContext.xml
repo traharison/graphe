@@ -17,49 +17,5 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:file.properties"/>
 	</bean>
-	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	      <property name="driverClassName" value="org.postgresql.Driver" />
-	      <property name="url" value="jdbc:postgresql://localhost:5432/p20" />
-	      <property name="username" value="up20" />
-	      <property name="password" value="up20" />
-   	</bean>
-
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		
-		<property name="configLocation">
-        	<value>classpath:hibernate.cfg.xml</value>
-    	</property>
-		
-		<property name="mappingResources">
-			<list>
-				<value>cabinet/hbm/Medecin.hbm.xml</value>
-				<value>cabinet/hbm/Specialite.hbm.xml</value>
-				<value>cabinet/hbm/Tarif.hbm.xml</value>
-			</list>						
-		</property>
-		
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.connection.driver_class">
-					org.postgresql.Driver</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-			</props>
-		</property>
-	</bean>
-	
-	<bean id="abstractService" abstract="true">		
-        <property name="dao" ref="hibernateDao"/>
-	</bean>
-	
-	<bean id="hibernateDao" class="cabinet.dao.HibernateDao">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	
-    <bean id="medecinService" class="cabinet.service.MedecinService" parent="abstractService"/>
-    <bean id="patientService" class="cabinet.service.PatientService" parent="abstractService"/>
-    <bean id="specialiteService" class="cabinet.service.SpecialiteService" parent="abstractService"/>
     
 </beans>
